@@ -1,3 +1,4 @@
+import { existsSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import * as pagefind from "pagefind";
 import type { PagefindHubConfig } from "../types.js";
@@ -41,6 +42,20 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
     } catch (error) {
       console.error(`Error fetching records from ${provider.name}:`, error);
     }
+  }
+
+  // Safety check and clean the output directory before writing files
+  if (existsSync(outputDir)) {
+    const files = readdirSync(outputDir);
+    const isPagefindDir = files.includes("pagefind-entry.json");
+
+    if (!isPagefindDir && files.length > 0) {
+      throw new Error(
+        `Safety Check Failed: The output directory "${outputDir}" is not empty and does not appear to be a Pagefind index directory. Please specify a clean directory or a directory previously used by Pagefind to avoid accidental data loss.`
+      );
+    }
+    console.log(`Cleaning existing output directory: ${outputDir}`);
+    rmSync(outputDir, { recursive: true, force: true });
   }
 
   console.log(`Writing index to output directory: ${outputDir}`);

@@ -20,6 +20,9 @@
   ],
   "author": "mash43",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "description": "",
   "dependencies": {
     "jiti": "^2.6.1",

@@ -56,6 +56,9 @@ Options:
       process.exit(1);
     }
 
+    // Change working directory to root so that relative paths in config are resolved correctly
+    process.chdir(root);
+
     await runPagefindHub(config);
   } catch (err) {
     console.error("Error executing Pagefind Hub:");

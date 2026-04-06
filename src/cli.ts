@@ -14,10 +14,6 @@ const pkg: { version: string } = JSON.parse(
 async function main() {
   const { values, positionals } = parseArgs({
     options: {
-      config: {
-        type: "string",
-        short: "c",
-      },
       help: {
         type: "boolean",
         short: "h",
@@ -35,7 +31,6 @@ async function main() {
 Usage: pagefind-hub [root] [options]
 
 Options:
-  -c, --config <file>  Path to config file
   -h, --help           Show help
   -v, --version        Show version
 `);

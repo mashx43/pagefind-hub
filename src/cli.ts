@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { loadConfig } from "./config.js";
 import { runPagefindHub } from "./core/runner.js";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const pkg: { version: string } = JSON.parse(
+  readFileSync(join(__dirname, "../package.json"), "utf8"),
+)
 
 async function main() {
   const { values, positionals } = parseArgs({
@@ -35,7 +43,7 @@ Options:
   }
 
   if (values.version) {
-    console.log("0.0.1");
+    console.log(pkg.version);
     return;
   }
 

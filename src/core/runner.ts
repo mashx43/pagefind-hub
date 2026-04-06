@@ -1,8 +1,15 @@
+import { join } from "node:path";
 import * as pagefind from "pagefind";
 import type { PagefindHubConfig } from "../types.js";
 
 export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
   console.log("Starting Pagefind Hub process...");
+
+  const outputDir = config.outputDir ?? (config.siteDir ? join(config.siteDir, "pagefind") : undefined);
+
+  if (!outputDir) {
+    throw new Error("outputDir is required when siteDir is not provided. Please specify outputDir in your config, or provide siteDir to use the default 'siteDir/pagefind'.");
+  }
 
   const { index } = await pagefind.createIndex();
 
@@ -36,8 +43,8 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
     }
   }
 
-  console.log(`Writing index to output directory: ${config.outputDir}`);
-  await index.writeFiles({ outputPath: config.outputDir });
+  console.log(`Writing index to output directory: ${outputDir}`);
+  await index.writeFiles({ outputPath: outputDir });
   
   console.log("Pagefind Hub process completed.");
   

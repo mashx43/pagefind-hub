@@ -20,9 +20,10 @@ export interface PagefindHubConfig {
   siteDir?: string;
   /**
    * The directory where the generated Pagefind index should be written.
-   * Required.
+   * If omitted and siteDir is specified, it defaults to "<siteDir>/pagefind".
+   * If siteDir is also omitted, this field is required.
    */
-  outputDir: string;
+  outputDir?: string;
   /**
    * List of providers to fetch custom records from.
    */

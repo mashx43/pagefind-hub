@@ -1,9 +1,9 @@
 import { test, expect, describe } from "bun:test";
-import { YouTubeProvider } from "./youtube.js";
+import { youtube } from "./youtube.js";
 
 describe("YouTubeProvider Tests", () => {
   test("YouTubeProvider initialization", () => {
-    const provider = new YouTubeProvider({ channelId: "UCxxxxxx" });
+    const provider = youtube({ channelId: "UCxxxxxx" });
     expect(provider.name).toBe("youtube");
   });
 });

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagefind Hub - Basic Example</title>
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+        header { border-bottom: 1px solid #eee; margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pagefind Hub: Basic Example</h1>
+        <p>This search interface indexes local HTML content and a simple mock provider.</p>
+    </header>
+
+    <main>
+        <p>Try searching for words found in <code>sample.html</code> (e.g., "features") or records from the mock provider (e.g., "mock").</p>
+        
+        <div id="search"></div>
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                new PagefindUI({ 
+                    element: "#search", 
+                    showSubResults: true,
+                    processResult: (result) => {
+                        console.log('Search result:', result);
+                        return result;
+                    }
+                });
+            });
+        </script>
+    </main>
+</body>
+</html>

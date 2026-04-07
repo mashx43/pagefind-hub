@@ -13,7 +13,11 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test": "bun test"
+    "test": "bun test",
+    "dev": "bun run src/cli.ts",
+    "example": "sh -c 'bun run src/cli.ts examples/${1:-basic}' --",
+    "serve": "sh -c 'bun run scripts/serve.ts examples/${1:-basic}/public' --",
+    "demo": "sh -c 'bun run example \"$1\" && bun run serve \"$1\"' --"
   },
   "keywords": [
     "pagefind"

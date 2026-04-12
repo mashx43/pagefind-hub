@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagefind Hub - Custom UI</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+    <style>
+        pagefind-filter-pane { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="back-link">&larr; Back to home</a>
+        <h1>Component UI Example</h1>
+        <p>Using the Pagefind Component UI.</p>
+    </header>
+
+    <main>
+			<pagefind-filter-pane></pagefind-filter-pane>
+	   	<pagefind-input></pagefind-input>
+	    <pagefind-keyboard-hints></pagefind-keyboard-hints>
+	    <pagefind-summary></pagefind-summary>
+	    <pagefind-results show-images></pagefind-results>
+    </main>
+</body>
+</html>

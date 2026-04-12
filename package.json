@@ -15,9 +15,9 @@
     "build": "tsdown",
     "test": "bun test",
     "dev": "bun run src/cli.ts",
-    "example": "sh -c 'bun run src/cli.ts examples/${1:-basic}' --",
-    "serve": "sh -c 'bun run scripts/serve.ts examples/${1:-basic}/public' --",
-    "demo": "sh -c 'bun run example \"$1\" && bun run serve \"$1\"' --"
+    "example": "cp example/content/* example/public && bun run src/cli.ts example",
+    "serve": "bun run scripts/serve.ts example/public",
+    "demo": "bun run example && bun run serve"
   },
   "keywords": [
     "pagefind"

@@ -1,5 +1,6 @@
 import { defineConfig } from "../src/config.js";
 import { bluesky } from "../src/providers/bluesky.js";
+import { github } from "../src/providers/github.js";
 import { youtube } from "../src/providers/youtube.js";
 
 /**
@@ -12,6 +13,9 @@ export default defineConfig({
 	providers: [
 		bluesky({
 			identifier: process.env.BLUESKY_IDENTIFIER || "bsky.app",
+		}),
+		github({
+			username: process.env.GITHUB_USERNAME || "github",
 		}),
 		...(process.env.YOUTUBE_API_KEY
 			? [

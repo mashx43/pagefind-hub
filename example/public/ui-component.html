@@ -26,6 +26,13 @@
 			<pagefind-keyboard-hints></pagefind-keyboard-hints>
 			<pagefind-summary></pagefind-summary>
 			<pagefind-results show-images></pagefind-results>
+			<script type="module">
+			import { observeExternalLinks } from "/ui.mjs";
+
+			window.addEventListener("DOMContentLoaded", () => {
+				observeExternalLinks();
+			});
+			</script>
 		</main>
 	</body>
 </html>

@@ -5,7 +5,8 @@
 	"main": "dist/index.mjs",
 	"exports": {
 		".": "./dist/index.mjs",
-		"./providers": "./dist/providers/index.mjs"
+		"./providers": "./dist/providers/index.mjs",
+		"./ui": "./dist/ui.mjs"
 	},
 	"bin": {
 		"pagefind-hub": "./dist/cli.mjs"
@@ -16,7 +17,7 @@
 		"dev": "bun run src/cli.ts",
 		"check": "bun test && biome check && tsc --noEmit --skipLibCheck",
 		"biome:fix": "biome check --write",
-		"example": "cp example/content/* example/public && bun run src/cli.ts example",
+		"example": "bun run build && cp dist/ui.mjs example/public/ && cp example/content/* example/public && bun run dist/cli.mjs example",
 		"serve": "bun run scripts/serve.ts example/public",
 		"demo": "bun run example && bun run serve"
 	},

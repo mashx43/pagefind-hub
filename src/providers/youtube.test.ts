@@ -10,7 +10,7 @@ test("youtube provider should fetch and transform records in live", async () => 
 
 	const provider = youtube({ channelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw", apiKey });
 	const records = await provider.fetchRecords();
-	
+
 	expect(Array.isArray(records)).toBe(true);
 
 	if (records.length > 0) {

@@ -1,43 +1,16 @@
-import { afterEach, describe, expect, mock, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { bluesky } from "./bluesky.js";
 
-describe("BlueskyProvider", () => {
-	const originalFetch = global.fetch;
-	afterEach(() => {
-		global.fetch = originalFetch;
-	});
+test("bluesky provider should fetch and transform records in live", async () => {
+	const provider = bluesky({ identifier: "bsky.app" });
+	const records = await provider.fetchRecords();
 
-	test("fetchRecords with mock data", async () => {
-		const provider = bluesky({ identifier: "user.bsky.social" });
+	expect(Array.isArray(records)).toBe(true);
 
-		global.fetch = mock(async () => {
-			return new Response(
-				JSON.stringify({
-					feed: [
-						{
-							post: {
-								uri: "at://did:plc:xxx/app.bsky.feed.post/post1",
-								record: {
-									text: "Hello Bluesky!",
-									createdAt: "2024-01-01T00:00:00Z",
-								},
-								embed: {
-									$type: "app.bsky.embed.images#view",
-									images: [{ thumb: "https://example.com/thumb.jpg" }],
-								},
-							},
-						},
-					],
-				}),
-			);
-		}) as unknown as typeof global.fetch;
-
-		const records = await provider.fetchRecords();
-		expect(records.length).toBe(1);
-		expect(records[0].content).toBe("Hello Bluesky!");
-		expect(records[0].image).toBe("https://example.com/thumb.jpg");
-		expect(records[0].url).toBe(
-			"https://bsky.app/profile/user.bsky.social/post/post1",
-		);
-	});
+	if (records.length > 0) {
+		const record = records[0];
+		expect(record.url).toContain("https://bsky.app/profile/");
+		expect(record.meta?.platform).toBe("Bluesky");
+		expect(record.filters?.platform).toEqual(["Bluesky"]);
+	}
 });

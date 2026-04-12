@@ -2,7 +2,6 @@ export interface ProviderRecord {
 	url: string;
 	content: string;
 	language?: string;
-	image?: string;
 	meta?: Record<string, string>;
 	filters?: Record<string, string[]>;
 	sort?: Record<string, string>;

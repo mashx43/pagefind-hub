@@ -17,6 +17,31 @@ export interface BlueskyProviderOptions {
 	 * @default true
 	 */
 	useThumbnails?: boolean;
+	/**
+	 * Optional meta data to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (post) => ({
+	 * 	title: `Bluesky Post by ${identifier}`,
+	 * 	date: post.record.createdAt,
+	 * 	platform: "Bluesky",
+	 * })
+	 * ```
+	 */
+	meta?: (post: BskyPost) => Record<string, string>;
+	/**
+	 * Optional filters to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (post) => ({ platform: ["Bluesky"] })
+	 * ```
+	 */
+	filters?: (post: BskyPost) => Record<string, string[]>;
+	/**
+	 * Optional sort to apply to the records.
+	 * @default undefined
+	 */
+	sort?: (post: BskyPost) => Record<string, string>;
 }
 
 interface BskyPostRecord {
@@ -49,7 +74,19 @@ interface BskyFeedResponse {
 }
 
 export function bluesky(options: BlueskyProviderOptions): Provider {
-	const { identifier, limit = 50, image, useThumbnails = true } = options;
+	const {
+		identifier,
+		limit = 50,
+		image,
+		useThumbnails = true,
+		meta = (post) => ({
+			title: `Bluesky Post by ${identifier}`,
+			date: post.record.createdAt,
+			platform: "Bluesky",
+		}),
+		filters = () => ({ platform: ["Bluesky"] }),
+		sort,
+	} = options;
 	const effectiveImage = image || DEFAULT_BLUESKY_ICON;
 
 	return {
@@ -68,43 +105,35 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 			const data = (await response.json()) as BskyFeedResponse;
 			const records: ProviderRecord[] = [];
 
-			for (const item of data.feed) {
+			for (const { post } of data.feed) {
 				// Create a URL from matching uri format: at://did:plc:xxx/app.bsky.feed.post/yyy
 				// URL structure: https://bsky.app/profile/{identifier}/post/{postId}
-				const uriParts = item.post.uri.split("/");
+				const uriParts = post.uri.split("/");
 				const postId = uriParts[uriParts.length - 1];
 
 				if (postId) {
 					const postUrl = `https://bsky.app/profile/${identifier}/post/${postId}`;
 
 					let postThumbnail: string | undefined;
-					if (item.post.embed) {
-						if (
-							item.post.embed.$type === "app.bsky.embed.images#view" &&
-							item.post.embed.images?.[0]
-						) {
-							postThumbnail = item.post.embed.images[0].thumb;
-						} else if (
-							item.post.embed.$type === "app.bsky.embed.external#view" &&
-							item.post.embed.external?.thumb
-						) {
-							postThumbnail = item.post.embed.external.thumb;
+					const { embed } = post;
+					if (embed) {
+						if (embed.images?.[0]) {
+							postThumbnail = embed.images[0].thumb;
+						} else if (embed.external?.thumb) {
+							postThumbnail = embed.external.thumb;
 						}
 					}
 
 					records.push({
 						url: postUrl,
-						content: item.post.record.text,
-						image:
-							useThumbnails && postThumbnail ? postThumbnail : effectiveImage,
+						content: post.record.text,
 						meta: {
-							title: `Bluesky Post by ${identifier}`,
-							date: item.post.record.createdAt,
-							platform: "Bluesky",
+							image:
+								useThumbnails && postThumbnail ? postThumbnail : effectiveImage,
+							...meta(post),
 						},
-						filters: {
-							platform: ["Bluesky"],
-						},
+						filters: filters(post),
+						sort: sort?.(post),
 					});
 				}
 			}

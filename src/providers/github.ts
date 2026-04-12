@@ -12,6 +12,33 @@ export interface GitHubProviderOptions {
 	 * @default DEFAULT_GITHUB_ICON
 	 */
 	image?: string;
+	/**
+	 * Optional meta data to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (repo) => ({
+	 * 	title: repo.full_name,
+	 * 	date: repo.pushed_at,
+	 * 	platform: "GitHub",
+	 * 	stars: repo.stargazers_count.toString(),
+	 * 	forks: repo.forks_count.toString(),
+	 * })
+	 * ```
+	 */
+	meta?: (repo: GitHubRepo) => Record<string, string>;
+	/**
+	 * Optional filters to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (repo) => ({ platform: ["GitHub"] })
+	 * ```
+	 */
+	filters?: (repo: GitHubRepo) => Record<string, string[]>;
+	/**
+	 * Optional sort to apply to the records.
+	 * @default undefined
+	 */
+	sort?: (repo: GitHubRepo) => Record<string, string>;
 }
 
 interface GitHubRepo {
@@ -29,7 +56,21 @@ interface GitHubRepo {
 }
 
 export function github(options: GitHubProviderOptions): Provider {
-	const { username, token, limit = 100, image } = options;
+	const {
+		username,
+		token,
+		limit = 100,
+		image,
+		meta = (repo) => ({
+			title: repo.full_name,
+			date: repo.pushed_at,
+			platform: "GitHub",
+			stars: repo.stargazers_count.toString(),
+			forks: repo.forks_count.toString(),
+		}),
+		filters = () => ({ platform: ["GitHub"] }),
+		sort,
+	} = options;
 	const effectiveImage = image || DEFAULT_GITHUB_ICON;
 
 	return {
@@ -61,20 +102,11 @@ export function github(options: GitHubProviderOptions): Provider {
 			for (const repo of repos) {
 				records.push({
 					url: repo.html_url,
-					content: repo.description || repo.full_name,
-					image: repo.owner.avatar_url || effectiveImage,
+					content: repo.description || "No description",
 					language: repo.language || undefined,
-					meta: {
-						title: repo.full_name,
-						date: repo.pushed_at,
-						platform: "GitHub",
-						stars: repo.stargazers_count.toString(),
-						forks: repo.forks_count.toString(),
-					},
-					filters: {
-						platform: ["GitHub"],
-						language: repo.language ? [repo.language] : ["Unknown"],
-					},
+					meta: { image: effectiveImage, ...meta(repo) },
+					filters: filters(repo),
+					sort: sort?.(repo),
 				});
 			}
 

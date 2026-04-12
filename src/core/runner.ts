@@ -34,17 +34,13 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 			console.log(`Adding ${records.length} records from ${provider.name}`);
 
 			for (const record of records) {
-				const meta = { ...record.meta };
-				if (record.image) {
-					meta.image = record.image;
-				}
 				await index.addCustomRecord({
 					url: record.url,
 					content: record.content,
 					language: record.language || "en",
-					meta,
-					filters: record.filters || {},
-					sort: record.sort || {},
+					meta: record.meta,
+					filters: record.filters,
+					sort: record.sort,
 				});
 			}
 		} catch (error) {

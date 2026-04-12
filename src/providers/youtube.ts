@@ -18,6 +18,33 @@ export interface YouTubeProviderOptions {
 	 * @default true
 	 */
 	useThumbnails?: boolean;
+	/**
+	 * Optional meta data to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (snippet) => ({
+	 * 	title: snippet.title,
+	 * 	date: snippet.publishedAt,
+	 * 	platform: "YouTube",
+	 * })
+	 * ```
+	 */
+	meta?: (snippet: YouTubePlaylistItem["snippet"]) => Record<string, string>;
+	/**
+	 * Optional filters to apply to the records.
+	 * @default
+	 * ```typescript
+	 * (snippet) => ({ platform: ["YouTube"] })
+	 * ```
+	 */
+	filters?: (
+		snippet: YouTubePlaylistItem["snippet"],
+	) => Record<string, string[]>;
+	/**
+	 * Optional sort to apply to the records.
+	 * @default undefined
+	 */
+	sort?: (snippet: YouTubePlaylistItem["snippet"]) => Record<string, string>;
 }
 
 interface YouTubeChannelResponse {
@@ -65,6 +92,13 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 		limit = 50,
 		image,
 		useThumbnails = true,
+		meta = (snippet) => ({
+			title: snippet.title,
+			date: snippet.publishedAt,
+			platform: "YouTube",
+		}),
+		filters = () => ({ platform: ["YouTube"] }),
+		sort,
 	} = options;
 	const effectiveImage = image || DEFAULT_YOUTUBE_ICON;
 
@@ -119,8 +153,8 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 			}
 
 			for (const item of data.items) {
-				const { title, description, publishedAt, resourceId, thumbnails } =
-					item.snippet;
+				const { snippet } = item;
+				const { description, resourceId, thumbnails } = snippet;
 				const videoUrl = `https://www.youtube.com/watch?v=${resourceId.videoId}`;
 
 				const videoThumbnail =
@@ -132,17 +166,14 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 
 				records.push({
 					url: videoUrl,
-					content: description || title,
-					image:
-						useThumbnails && videoThumbnail ? videoThumbnail : effectiveImage,
+					content: description || "No description",
 					meta: {
-						title: title,
-						date: publishedAt,
-						platform: "YouTube",
+						image:
+							useThumbnails && videoThumbnail ? videoThumbnail : effectiveImage,
+						...meta(snippet),
 					},
-					filters: {
-						platform: ["YouTube"],
-					},
+					filters: filters(snippet),
+					sort: sort?.(snippet),
 				});
 			}
 

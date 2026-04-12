@@ -5,7 +5,6 @@
   "main": "dist/index.mjs",
   "exports": {
     ".": "./dist/index.mjs",
-    "./config": "./dist/config.mjs",
     "./providers": "./dist/providers/index.mjs"
   },
   "bin": {

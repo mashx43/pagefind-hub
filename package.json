@@ -1,43 +1,46 @@
 {
-  "name": "@mash43/pagefind-hub",
-  "version": "0.0.1",
-  "type": "module",
-  "main": "dist/index.mjs",
-  "exports": {
-    ".": "./dist/index.mjs",
-    "./providers": "./dist/providers/index.mjs"
-  },
-  "bin": {
-    "pagefind-hub": "./dist/cli.mjs"
-  },
-  "scripts": {
-    "build": "tsdown",
-    "test": "bun test",
-    "dev": "bun run src/cli.ts",
-    "example": "cp example/content/* example/public && bun run src/cli.ts example",
-    "serve": "bun run scripts/serve.ts example/public",
-    "demo": "bun run example && bun run serve"
-  },
-  "keywords": [
-    "pagefind"
-  ],
-  "author": "mash43",
-  "license": "MIT",
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "description": "",
-  "dependencies": {
-    "jiti": "^2.6.1"
-  },
-  "peerDependencies": {
-    "pagefind": "^1.4.0"
-  },
-  "devDependencies": {
-    "@types/node": "^25.5.2",
-    "bun-types": "^1.3.11",
-    "pagefind": "^1.5.0",
-    "tsdown": "^0.21.7",
-    "typescript": "^6.0.2"
-  }
+	"name": "@mash43/pagefind-hub",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "dist/index.mjs",
+	"exports": {
+		".": "./dist/index.mjs",
+		"./providers": "./dist/providers/index.mjs"
+	},
+	"bin": {
+		"pagefind-hub": "./dist/cli.mjs"
+	},
+	"scripts": {
+		"build": "tsdown",
+		"test": "bun test",
+		"dev": "bun run src/cli.ts",
+		"check": "bun test && biome check && tsc --noEmit --skipLibCheck",
+		"biome:fix": "biome check --write",
+		"example": "cp example/content/* example/public && bun run src/cli.ts example",
+		"serve": "bun run scripts/serve.ts example/public",
+		"demo": "bun run example && bun run serve"
+	},
+	"keywords": [
+		"pagefind"
+	],
+	"author": "mash43",
+	"license": "MIT",
+	"engines": {
+		"node": ">=22.0.0"
+	},
+	"description": "",
+	"dependencies": {
+		"jiti": "^2.6.1"
+	},
+	"peerDependencies": {
+		"pagefind": "^1.4.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.11",
+		"@types/node": "^25.5.2",
+		"bun-types": "^1.3.11",
+		"pagefind": "^1.5.0",
+		"tsdown": "^0.21.7",
+		"typescript": "^6.0.2"
+	}
 }

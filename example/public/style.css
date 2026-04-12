@@ -1,61 +1,61 @@
 body {
-    font-family: sans-serif;
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 0 1rem;
-    line-height: 1.6;
+	font-family: sans-serif;
+	max-width: 800px;
+	margin: 4rem auto;
+	padding: 0 1rem;
+	line-height: 1.6;
 }
 
 header {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 2rem;
+	padding-bottom: 1rem;
 }
 
 h1 {
-    margin-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .back-link {
-    display: block;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    color: #666;
+	display: block;
+	margin-bottom: 1rem;
+	text-decoration: none;
+	color: #666;
 }
 .back-link:hover {
-    color: #0070f3;
+	color: #0070f3;
 }
 
 .info {
-    background: #f9f9f9;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #0070f3;
-    margin-bottom: 2rem;
-    text-align: left;
+	background: #f9f9f9;
+	padding: 1.5rem;
+	border-radius: 8px;
+	border-left: 4px solid #0070f3;
+	margin-bottom: 2rem;
+	text-align: left;
 }
 
 /* Options/Cards (used in index.html) */
 .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin: 2rem 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	margin: 2rem 0;
 }
 .option-card {
-    padding: 2rem;
-    border: 2px solid #eee;
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s;
-    text-align: center;
+	padding: 2rem;
+	border: 2px solid #eee;
+	border-radius: 8px;
+	text-decoration: none;
+	color: inherit;
+	transition: all 0.2s;
+	text-align: center;
 }
 .option-card:hover {
-    border-color: #0070f3;
-    background: #f0f7ff;
+	border-color: #0070f3;
+	background: #f0f7ff;
 }
 .option-card h2 {
-    margin-top: 0;
-    color: #0070f3;
+	margin-top: 0;
+	color: #0070f3;
 }

@@ -12,7 +12,7 @@ export default defineConfig({
   outputDir: "public/pagefind",
   providers: [
     bluesky({
-      identifier: process.env.BLUESKY_HANDLE || "bsky.app",
+			identifier: process.env.BLUESKY_IDENTIFIER || "bsky.app",
     }),
     youtube({
       channelId: process.env.YOUTUBE_CHANNEL_ID || "UC_x5XG1OV2P6uZZ5FSM9Ttw",

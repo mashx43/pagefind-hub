@@ -8,6 +8,14 @@
 	"files": {
 		"includes": ["**", "!!**/dist"]
 	},
+	"html": {
+		"formatter": {
+			"enabled": true
+		},
+		"linter": {
+			"enabled": true
+		}
+	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"

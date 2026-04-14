@@ -96,7 +96,7 @@ Fetches public repositories from a specific user.
 |---|---|---|---|
 | `username` | `string` (Required) | - | GitHub username. |
 | `token` | `string` | - | GitHub personal access token (increases API rate limits). |
-| `limit` | `number` | `100` | Max number of repos. |
+| `limit` | `number` | `50` | Max number of repos. |
 | `image` | `string` | - | Fallback image URL. |
 | `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date, stars, forks) |
 

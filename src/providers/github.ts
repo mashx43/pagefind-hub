@@ -59,7 +59,7 @@ export function github(options: GitHubProviderOptions): Provider {
 	const {
 		username,
 		token,
-		limit = 100,
+		limit = 50,
 		image,
 		meta = (repo) => ({
 			title: repo.full_name,

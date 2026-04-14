@@ -96,7 +96,7 @@ npm run pagefind-hub
 |---|---|---|---|
 | `username` | `string`（必須） | - | GitHubのユーザー名。 |
 | `token` | `string` | - | GitHubパーソナルアクセストークン（APIのレート制限を引き上げたい場合に使用）。 |
-| `limit` | `number` | `100` | 取得するリポジトリの最大数。 |
+| `limit` | `number` | `50` | 取得するリポジトリの最大数。 |
 | `image` | `string` | - | フォールバック用の画像URL。 |
 | `meta`, `filters`, `sort` | `Function` | 組み込み | Pagefindインデックス用のメタデータ等をカスタマイズできる関数。（デフォルトではプラットフォーム名、タイトル、日時、スター数、フォーク数が付与されます） |
 

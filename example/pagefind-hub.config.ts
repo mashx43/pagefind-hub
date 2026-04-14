@@ -20,8 +20,7 @@ export default defineConfig({
 		...(process.env.YOUTUBE_API_KEY
 			? [
 					youtube({
-						channelId:
-							process.env.YOUTUBE_CHANNEL_ID || "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+						channelId: process.env.YOUTUBE_CHANNEL_ID || "@GoogleDevelopers",
 						apiKey: process.env.YOUTUBE_API_KEY,
 					}),
 				]

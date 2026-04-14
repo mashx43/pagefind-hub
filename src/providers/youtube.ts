@@ -10,6 +10,7 @@ export interface YouTubeProviderOptions
 	extends CommonProviderOptions<YouTubePlaylistItem["snippet"]> {
 	/**
 	 * YouTube channel ID to fetch uploads from.
+	 * (e.g., `UCXXXXXXX`) or handle (e.g., `@handle`)
 	 */
 	channelId: string;
 	/**
@@ -112,7 +113,9 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 			}
 
 			// 1. Get the "uploads" playlist ID from the channel ID
-			const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`;
+			const isHandle = channelId.startsWith("@");
+			const idParam = isHandle ? `forHandle=${channelId}` : `id=${channelId}`;
+			const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&${idParam}&key=${apiKey}`;
 
 			const channelResponse = await fetch(channelUrl);
 

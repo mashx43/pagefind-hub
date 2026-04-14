@@ -125,7 +125,7 @@ Fetches the latest videos uploaded by a YouTube channel.
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `channelId` | `string` (Required) | - | The YouTube Channel ID. |
+| `channelId` | `string` (Required) | - | The YouTube Channel ID (e.g., `UCXXXXXXX`) or handle (e.g., `@handle`). |
 | `apiKey` | `string` (Required) | - | YouTube Data API v3 Key. |
 | `useThumbnails` | `boolean` | `true` | Use the video's thumbnail. |
 

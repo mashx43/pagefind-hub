@@ -125,7 +125,7 @@ npm run pagefind-hub
 
 | オプション | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `channelId` | `string`（必須） | - | YouTubeのチャンネルID。 |
+| `channelId` | `string`（必須） | - | YouTubeのチャンネルID（例: `UCXXXXXXX`）またはハンドル（例: `@handle`）。 |
 | `apiKey` | `string`（必須） | - | YouTube Data API v3のキー。 |
 | `useThumbnails` | `boolean` | `true` | 動画のサムネイル画像を使用するかどうか。 |
 

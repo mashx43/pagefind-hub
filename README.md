@@ -82,17 +82,25 @@ npm run pagefind-hub
 
 ## Providers
 
+### Common Options
+These options are available for all providers.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `limit` | `number` | `50` | Max number of records to fetch. |
+| `image` | `string` | Provider icon | Fallback image URL to show for records. |
+| `language` | `string` | - | Language code (e.g., "en"). |
+| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. |
+
+---
+
 ### Bluesky (`bluesky`)
 Fetches posts from a specific Bluesky author feed.
 
 | Option | Type | Default | Description |
 |---|---|---|---|
 | `identifier` | `string` (Required) | - | The Bluesky handle or DID. |
-| `limit` | `number` | `50` | Max number of posts. |
-| `image` | `string` | - | Fallback image URL. |
-| `language` | `string` | - | Language code (e.g., "en"). |
 | `useThumbnails` | `boolean` | `true` | Use the post's thumbnail. |
-| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
 
 ### GitHub (`github`)
 Fetches public repositories from a specific user.
@@ -101,10 +109,6 @@ Fetches public repositories from a specific user.
 |---|---|---|---|
 | `username` | `string` (Required) | - | GitHub username. |
 | `token` | `string` | - | GitHub personal access token (increases API rate limits). |
-| `limit` | `number` | `50` | Max number of repos. |
-| `image` | `string` | - | Fallback image URL. |
-| `language` | `string` | - | Language code (e.g., "en"). |
-| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date, stars, forks) |
 
 ### YouTube (`youtube`)
 Fetches the latest videos uploaded by a YouTube channel.
@@ -113,11 +117,7 @@ Fetches the latest videos uploaded by a YouTube channel.
 |---|---|---|---|
 | `channelId` | `string` (Required) | - | The YouTube Channel ID. |
 | `apiKey` | `string` (Required) | - | YouTube Data API v3 Key. |
-| `limit` | `number` | `50` | Max number of videos. |
-| `image` | `string` | - | Fallback image URL. |
-| `language` | `string` | - | Language code (e.g., "en"). |
 | `useThumbnails` | `boolean` | `true` | Use the video's thumbnail. |
-| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
 
 ## UI Integration
 

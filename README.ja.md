@@ -82,17 +82,25 @@ npm run pagefind-hub
 
 ## プロバイダ詳細
 
+### 共通オプション
+すべてのプロバイダーで共通して利用可能なオプションです。
+
+| オプション | 型 | デフォルト | 説明 |
+|---|---|---|---|
+| `limit` | `number` | `50` | 取得するレコードの最大数。 |
+| `image` | `string` | 各アイコン | フォールバック用の画像URL。 |
+| `language` | `string` | - | 言語コード（例："ja"）。設定された場合、このプロバイダーのレコード全てに適用されます。 |
+| `meta`, `filters`, `sort` | `Function` | 組み込み | Pagefindインデックス用のメタデータ等をカスタマイズできる関数。 |
+
+---
+
 ### Bluesky (`bluesky`)
 特定のBlueskyユーザーのフィードから投稿を取得します。
 
 | オプション | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `identifier` | `string`（必須） | - | Blueskyのハンドル名、またはDID。 |
-| `limit` | `number` | `50` | 取得する投稿の最大数。 |
-| `image` | `string` | - | フォールバック用の画像URL。 |
-| `language` | `string` | - | 言語コード（例："ja"）。設定された場合、このプロバイダーのレコード全てに適用されます。 |
 | `useThumbnails` | `boolean` | `true` | 投稿のサムネイル画像を使用するかどうか。 |
-| `meta`, `filters`, `sort` | `Function` | 組み込み | Pagefindインデックス用のメタデータ等をカスタマイズできる関数。（デフォルトではプラットフォーム名、タイトル、日時が付与されます） |
 
 ### GitHub (`github`)
 特定のユーザーのパブリックリポジトリ一覧を取得します。
@@ -100,11 +108,7 @@ npm run pagefind-hub
 | オプション | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `username` | `string`（必須） | - | GitHubのユーザー名。 |
-| `token` | `string` | - | GitHubパーソナルアクセストークン（APIのレート制限を引き上げたい場合に使用）。 |
-| `limit` | `number` | `50` | 取得するリポジトリの最大数。 |
-| `image` | `string` | - | フォールバック用の画像URL。 |
-| `language` | `string` | - | 言語コード（例："ja"）。設定された場合、このプロバイダーのレコード全てに適用されます。 |
-| `meta`, `filters`, `sort` | `Function` | 組み込み | Pagefindインデックス用のメタデータ等をカスタマイズできる関数。（デフォルトではプラットフォーム名、タイトル、日時、スター数、フォーク数が付与されます） |
+| `token` | `string` | - | GitHubトークン（APIレート制限の緩和に使用）。 |
 
 ### YouTube (`youtube`)
 特定のYouTubeチャンネルでアップロードされた最新の動画一覧を取得します。
@@ -113,11 +117,7 @@ npm run pagefind-hub
 |---|---|---|---|
 | `channelId` | `string`（必須） | - | YouTubeのチャンネルID。 |
 | `apiKey` | `string`（必須） | - | YouTube Data API v3のキー。 |
-| `limit` | `number` | `50` | 取得する動画の最大数。 |
-| `image` | `string` | - | フォールバック用の画像URL。 |
-| `language` | `string` | - | 言語コード（例："ja"）。設定された場合、このプロバイダーのレコード全てに適用されます。 |
 | `useThumbnails` | `boolean` | `true` | 動画のサムネイル画像を使用するかどうか。 |
-| `meta`, `filters`, `sort` | `Function` | 組み込み | Pagefindインデックス用のメタデータ等をカスタマイズできる関数。（デフォルトではプラットフォーム名、タイトル、日時が付与されます） |
 
 ## UI ユーティリティ
 

@@ -27,11 +27,17 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 		await index.addDirectory({ path: config.siteDir });
 	}
 
+	console.log(`Processing ${config.providers.length} providers...`);
 	for (const provider of config.providers) {
-		console.log(`Fetching records from provider: ${provider.name}`);
+		const startTime = Date.now();
+		console.log(`[${provider.name}] Fetching records...`);
 		try {
 			const records = await provider.fetchRecords();
-			console.log(`Adding ${records.length} records from ${provider.name}`);
+			console.log(
+				`[${provider.name}] Adding ${records.length} records (took ${
+					Date.now() - startTime
+				}ms)`,
+			);
 
 			for (const record of records) {
 				await index.addCustomRecord({
@@ -44,7 +50,7 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 				});
 			}
 		} catch (error) {
-			console.error(`Error fetching records from ${provider.name}:`, error);
+			console.error(`[${provider.name}] Error fetching records:`, error);
 		}
 	}
 
@@ -63,7 +69,14 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 	}
 
 	console.log(`Writing index to output directory: ${outputDir}`);
-	await index.writeFiles({ outputPath: outputDir });
+	const result = await index.writeFiles({ outputPath: outputDir });
+
+	if (result?.errors?.length) {
+		console.error("Pagefind errors during writeFiles:");
+		for (const error of result.errors) {
+			console.error(`- ${error}`);
+		}
+	}
 
 	console.log("Pagefind Hub process completed.");
 

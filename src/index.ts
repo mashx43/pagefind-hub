@@ -1,3 +1,3 @@
 export { defineConfig } from "./config.js";
-export * from "./core/runner.js";
-export * from "./types.js";
+export { runPagefindHub } from "./core/runner.js";
+export type { PagefindHubConfig, Provider, ProviderRecord } from "./types.js";

@@ -60,7 +60,7 @@ export function github(options: GitHubProviderOptions): Provider {
 		username,
 		token,
 		limit = 50,
-		image,
+		image = DEFAULT_GITHUB_ICON,
 		meta = (repo) => ({
 			title: repo.full_name,
 			date: repo.pushed_at,
@@ -71,7 +71,6 @@ export function github(options: GitHubProviderOptions): Provider {
 		filters = () => ({ platform: ["GitHub"] }),
 		sort,
 	} = options;
-	const effectiveImage = image || DEFAULT_GITHUB_ICON;
 
 	return {
 		name: "github",
@@ -97,20 +96,15 @@ export function github(options: GitHubProviderOptions): Provider {
 			}
 
 			const repos = (await response.json()) as GitHubRepo[];
-			const records: ProviderRecord[] = [];
 
-			for (const repo of repos) {
-				records.push({
-					url: repo.html_url,
-					content: repo.description || "No description",
-					language: repo.language || undefined,
-					meta: { image: effectiveImage, ...meta(repo) },
-					filters: filters(repo),
-					sort: sort?.(repo),
-				});
-			}
-
-			return records;
+			return repos.map((repo) => ({
+				url: repo.html_url,
+				content: repo.description || "No description",
+				language: repo.language || undefined,
+				meta: { image, ...meta(repo) },
+				filters: filters(repo),
+				sort: sort?.(repo),
+			}));
 		},
 	};
 }

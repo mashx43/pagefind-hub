@@ -89,7 +89,7 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 		channelId,
 		apiKey,
 		limit = 50,
-		image,
+		image = DEFAULT_YOUTUBE_ICON,
 		useThumbnails = true,
 		meta = (snippet) => ({
 			title: snippet.title,
@@ -99,7 +99,6 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 		filters = () => ({ platform: ["YouTube"] }),
 		sort,
 	} = options;
-	const effectiveImage = image || DEFAULT_YOUTUBE_ICON;
 
 	return {
 		name: "youtube",
@@ -145,13 +144,12 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 			}
 
 			const data = (await response.json()) as YouTubePlaylistResponse;
-			const records: ProviderRecord[] = [];
 
 			if (!data.items) {
 				return [];
 			}
 
-			for (const item of data.items) {
+			return data.items.map((item) => {
 				const { snippet } = item;
 				const { description, resourceId, thumbnails } = snippet;
 				const videoUrl = `https://www.youtube.com/watch?v=${resourceId.videoId}`;
@@ -163,20 +161,17 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 					thumbnails?.standard?.url ||
 					thumbnails?.maxres?.url;
 
-				records.push({
+				return {
 					url: videoUrl,
 					content: description || "No description",
 					meta: {
-						image:
-							useThumbnails && videoThumbnail ? videoThumbnail : effectiveImage,
+						image: useThumbnails && videoThumbnail ? videoThumbnail : image,
 						...meta(snippet),
 					},
 					filters: filters(snippet),
 					sort: sort?.(snippet),
-				});
-			}
-
-			return records;
+				};
+			});
 		},
 	};
 }

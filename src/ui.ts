@@ -11,7 +11,7 @@ export function observeExternalLinks(): MutationObserver | null {
 		return null;
 	}
 
-	function updateLinks() {
+	function updateLinks(): void {
 		const links = container.querySelectorAll<HTMLAnchorElement>(
 			"a[href]:not([target='_blank'])",
 		);

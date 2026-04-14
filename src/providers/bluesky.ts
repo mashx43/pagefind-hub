@@ -77,7 +77,7 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 	const {
 		identifier,
 		limit = 50,
-		image,
+		image = DEFAULT_BLUESKY_ICON,
 		useThumbnails = true,
 		meta = (post) => ({
 			title: `Bluesky Post by ${identifier}`,
@@ -87,7 +87,6 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 		filters = () => ({ platform: ["Bluesky"] }),
 		sort,
 	} = options;
-	const effectiveImage = image || DEFAULT_BLUESKY_ICON;
 
 	return {
 		name: "bluesky",
@@ -106,36 +105,33 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 			const records: ProviderRecord[] = [];
 
 			for (const { post } of data.feed) {
-				// Create a URL from matching uri format: at://did:plc:xxx/app.bsky.feed.post/yyy
-				// URL structure: https://bsky.app/profile/{identifier}/post/{postId}
 				const uriParts = post.uri.split("/");
 				const postId = uriParts[uriParts.length - 1];
 
-				if (postId) {
-					const postUrl = `https://bsky.app/profile/${identifier}/post/${postId}`;
+				if (!postId) continue;
 
-					let postThumbnail: string | undefined;
-					const { embed } = post;
-					if (embed) {
-						if (embed.images?.[0]) {
-							postThumbnail = embed.images[0].thumb;
-						} else if (embed.external?.thumb) {
-							postThumbnail = embed.external.thumb;
-						}
+				const postUrl = `https://bsky.app/profile/${identifier}/post/${postId}`;
+
+				let postThumbnail: string | undefined;
+				const { embed } = post;
+				if (embed) {
+					if (embed.images?.[0]) {
+						postThumbnail = embed.images[0].thumb;
+					} else if (embed.external?.thumb) {
+						postThumbnail = embed.external.thumb;
 					}
-
-					records.push({
-						url: postUrl,
-						content: post.record.text,
-						meta: {
-							image:
-								useThumbnails && postThumbnail ? postThumbnail : effectiveImage,
-							...meta(post),
-						},
-						filters: filters(post),
-						sort: sort?.(post),
-					});
 				}
+
+				records.push({
+					url: postUrl,
+					content: post.record.text,
+					meta: {
+						image: useThumbnails && postThumbnail ? postThumbnail : image,
+						...meta(post),
+					},
+					filters: filters(post),
+					sort: sort?.(post),
+				});
 			}
 
 			return records;

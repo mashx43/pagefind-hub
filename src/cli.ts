@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { loadConfig } from "./config.js";
+import { initConfig, loadConfig } from "./config.js";
 import { runPagefindHub } from "./core/runner.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -28,11 +28,15 @@ async function main() {
 
 	if (values.help) {
 		console.log(`
-Usage: pagefind-hub [root] [options]
+Usage: pagefind-hub [command] [options]
+
+Commands:
+  init          Initialize a new configuration file
+  [root]        Run Pagefind Hub (defaults to current directory)
 
 Options:
-  -h, --help           Show help
-  -v, --version        Show version
+  -h, --help    Show help
+  -v, --version Show version
 `);
 		return;
 	}
@@ -42,8 +46,24 @@ Options:
 		return;
 	}
 
+	const command = positionals[0];
+
+	if (command === "init") {
+		try {
+			const root = positionals[1] || process.cwd();
+			const configPath = await initConfig(root);
+			console.log(`Created configuration file at ${configPath}`);
+			return;
+		} catch (err: unknown) {
+			console.error(
+				`Error initializing config: ${err instanceof Error ? err.message : String(err)}`,
+			);
+			process.exit(1);
+		}
+	}
+
 	try {
-		const root = positionals[0] || process.cwd();
+		const root = command || process.cwd();
 		const config = await loadConfig(root);
 
 		if (!config) {

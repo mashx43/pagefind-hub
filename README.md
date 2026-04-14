@@ -22,9 +22,19 @@ npm install @mash43/pagefind-hub pagefind
 
 ## Usage
 
-### 1. Configuration
+### 1. Initialization
 
-Create a `pagefind-hub.config.ts` file at the root of your project:
+You can quickly create a configuration file using the `init` command:
+
+```bash
+npx pagefind-hub init
+```
+
+This will prompt you for `siteDir` and `outputDir` and generate a `pagefind-hub.config.ts` file in your root directory.
+
+### 2. Configuration
+
+If you prefer to create the file manually, create a `pagefind-hub.config.ts` file at the root of your project:
 
 ```typescript
 import { defineConfig } from "@mash43/pagefind-hub";
@@ -58,7 +68,7 @@ export default defineConfig({
 });
 ```
 
-### 2. Run the CLI
+### 3. Run the CLI
 
 Execute the command passing the root directory (defaults to current directory):
 

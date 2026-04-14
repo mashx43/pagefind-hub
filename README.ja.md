@@ -22,9 +22,19 @@ npm install @mash43/pagefind-hub pagefind
 
 ## 使い方
 
-### 1. 設定ファイルを作成する
+### 1. 設定ファイルの初期化
 
-プロジェクトのルートディレクトリに `pagefind-hub.config.ts` を作成します:
+`init` コマンドを使用して、対話形式で設定ファイルを生成できます:
+
+```bash
+npx pagefind-hub init
+```
+
+このコマンドを実行すると、`siteDir` や `outputDir` の入力を求められ、プロジェクトのルートに `pagefind-hub.config.ts` が自動生成されます。
+
+### 2. 設定ファイルの構成
+
+手動で作成する場合や、生成されたファイルを編集する場合は、以下のようにプロバイダを設定します:
 
 ```typescript
 import { defineConfig } from "@mash43/pagefind-hub";
@@ -58,7 +68,7 @@ export default defineConfig({
 });
 ```
 
-### 2. CLIの実行
+### 3. CLIの実行
 
 ルートディレクトリ（デフォルトはカレントディレクトリ）を対象として実行します:
 

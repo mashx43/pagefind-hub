@@ -1,17 +1,22 @@
-import type { Provider, ProviderRecord } from "../types.js";
+import type {
+	CommonProviderOptions,
+	Provider,
+	ProviderRecord,
+} from "../types.js";
 
 const DEFAULT_GITHUB_ICON =
 	"https://cdn.jsdelivr.net/gh/gilbarbara/logos/logos/github-icon.svg";
 
-export interface GitHubProviderOptions {
-	username: string;
-	token?: string;
-	limit?: number;
+export interface GitHubProviderOptions
+	extends CommonProviderOptions<GitHubRepo> {
 	/**
-	 * Optional image to show for GitHub records.
-	 * @default DEFAULT_GITHUB_ICON
+	 * GitHub username to fetch repositories from.
 	 */
-	image?: string;
+	username: string;
+	/**
+	 * Optional GitHub Personal Access Token (PAT) to increase API rate limits.
+	 */
+	token?: string;
 	/**
 	 * Optional meta data to apply to the records.
 	 * @default
@@ -34,11 +39,6 @@ export interface GitHubProviderOptions {
 	 * ```
 	 */
 	filters?: (repo: GitHubRepo) => Record<string, string[]>;
-	/**
-	 * Optional sort to apply to the records.
-	 * @default undefined
-	 */
-	sort?: (repo: GitHubRepo) => Record<string, string>;
 }
 
 interface GitHubRepo {

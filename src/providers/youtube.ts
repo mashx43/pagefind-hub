@@ -1,17 +1,21 @@
-import type { Provider, ProviderRecord } from "../types.js";
+import type {
+	CommonProviderOptions,
+	Provider,
+	ProviderRecord,
+} from "../types.js";
 
 const DEFAULT_YOUTUBE_ICON =
 	"https://cdn.jsdelivr.net/gh/gilbarbara/logos/logos/youtube-icon.svg";
-
-export interface YouTubeProviderOptions {
-	channelId: string;
-	apiKey: string;
-	limit?: number;
+export interface YouTubeProviderOptions
+	extends CommonProviderOptions<YouTubePlaylistItem["snippet"]> {
 	/**
-	 * Optional image to show for YouTube records when no thumbnail is available
-	 * or when useThumbnails is false.
+	 * YouTube channel ID to fetch uploads from.
 	 */
-	image?: string;
+	channelId: string;
+	/**
+	 * YouTube Data API v3 Key.
+	 */
+	apiKey: string;
 	/**
 	 * Whether to use the video's thumbnail as the record's image.
 	 * If false, or if no thumbnail is available, the image (or default image) will be used.
@@ -40,11 +44,6 @@ export interface YouTubeProviderOptions {
 	filters?: (
 		snippet: YouTubePlaylistItem["snippet"],
 	) => Record<string, string[]>;
-	/**
-	 * Optional sort to apply to the records.
-	 * @default undefined
-	 */
-	sort?: (snippet: YouTubePlaylistItem["snippet"]) => Record<string, string>;
 }
 
 interface YouTubeChannelResponse {

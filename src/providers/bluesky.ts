@@ -1,16 +1,17 @@
-import type { Provider, ProviderRecord } from "../types.js";
+import type {
+	CommonProviderOptions,
+	Provider,
+	ProviderRecord,
+} from "../types.js";
 
 const DEFAULT_BLUESKY_ICON =
 	"https://cdn.jsdelivr.net/gh/gilbarbara/logos/logos/bluesky.svg";
-
-export interface BlueskyProviderOptions {
-	identifier: string;
-	limit?: number;
+export interface BlueskyProviderOptions
+	extends CommonProviderOptions<BskyPost> {
 	/**
-	 * Optional image to show for Bluesky records when no thumbnail is available
-	 * or when useThumbnails is false.
+	 * Bluesky handle or DID (e.g., "bsky.app" or "did:plc:xxx").
 	 */
-	image?: string;
+	identifier: string;
 	/**
 	 * Whether to use the post's thumbnail as the record's image.
 	 * If false, or if no thumbnail is available, the image (or default image) will be used.
@@ -41,7 +42,6 @@ export interface BlueskyProviderOptions {
 	 * Optional sort to apply to the records.
 	 * @default undefined
 	 */
-	sort?: (post: BskyPost) => Record<string, string>;
 }
 
 interface BskyPostRecord {

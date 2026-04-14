@@ -1,0 +1,131 @@
+# @mash43/pagefind-hub
+
+[![npm version](https://img.shields.io/npm/v/@mash43/pagefind-hub.svg)](https://www.npmjs.com/package/@mash43/pagefind-hub) 
+
+A CLI tool that seamlessly aggregates external content and indexes them alongside your static site's content using [Pagefind](https://pagefind.app/).
+
+## Features
+
+- **External Providers**: Easily fetch records from external services (e.g., Bluesky, GitHub, YouTube) to be indexed.
+- **Unified Index**: Combine your local website content (`siteDir`) with external data sources into a single Pagefind index.
+- **Customizable**: Add custom metadata, filters, and sorting for each provider record.
+- **UI Utilities**: Includes an observer to automatically open external search results in new tabs for better UX.
+- **TypeScript Support**: Full TypeScript support with `pagefind-hub.config.ts`.
+
+## Installation
+
+```bash
+npm install @mash43/pagefind-hub pagefind
+```
+
+*(Note: `pagefind` is required as a peer dependency.)*
+
+## Usage
+
+### 1. Configuration
+
+Create a `pagefind-hub.config.ts` file at the root of your project:
+
+```typescript
+import { defineConfig } from "@mash43/pagefind-hub";
+import { bluesky, github, youtube } from "@mash43/pagefind-hub/providers";
+
+export default defineConfig({
+  // Optional: The directory containing your static HTML files to be indexed.
+  // If omitted, it will only index records fetched from providers.
+  siteDir: "dist", 
+
+  // Optional: Output directory for the generated Pagefind index.
+  // Defaults to "dist/pagefind" if siteDir is "dist".
+  // outputDir: "dist/pagefind", 
+
+  providers: [
+    bluesky({
+      identifier: "your-handle.bsky.social",
+    }),
+    github({
+      username: "your-github-username",
+    }),
+    youtube({
+      channelId: "UCXXXXXXXXXXXXXXX",
+      apiKey: process.env.YOUTUBE_API_KEY,
+    }),
+  ],
+});
+```
+
+### 2. Run the CLI
+
+Execute the command passing the root directory (defaults to current directory):
+
+```bash
+npx pagefind-hub
+```
+
+Alternatively, you can add a script to your `package.json` and run it using `npm`:
+
+```json
+{
+  "scripts": {
+    "pagefind-hub": "pagefind-hub"
+  }
+}
+```
+
+```bash
+npm run pagefind-hub
+```
+
+## Providers
+
+### Bluesky (`bluesky`)
+Fetches posts from a specific Bluesky author feed.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `identifier` | `string` (Required) | - | The Bluesky handle or DID. |
+| `limit` | `number` | `50` | Max number of posts. |
+| `image` | `string` | - | Fallback image URL. |
+| `useThumbnails` | `boolean` | `true` | Use the post's thumbnail. |
+| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
+
+### GitHub (`github`)
+Fetches public repositories from a specific user.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `username` | `string` (Required) | - | GitHub username. |
+| `token` | `string` | - | GitHub personal access token (increases API rate limits). |
+| `limit` | `number` | `100` | Max number of repos. |
+| `image` | `string` | - | Fallback image URL. |
+| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date, stars, forks) |
+
+### YouTube (`youtube`)
+Fetches the latest videos uploaded by a YouTube channel.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `channelId` | `string` (Required) | - | The YouTube Channel ID. |
+| `apiKey` | `string` (Required) | - | YouTube Data API v3 Key. |
+| `limit` | `number` | `50` | Max number of videos. |
+| `image` | `string` | - | Fallback image URL. |
+| `useThumbnails` | `boolean` | `true` | Use the video's thumbnail. |
+| `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
+
+## UI Integration
+
+When displaying search results containing external URLs, you might want to automatically add `target="_blank"` to them. We provide a small utility script for this.
+
+```javascript
+import { observeExternalLinks } from "@mash43/pagefind-hub/ui";
+
+// Start observing the Pagefind results container
+const observer = observeExternalLinks();
+
+// Remember to cleanup when unmounting/destroying
+// observer?.disconnect();
+```
+
+## License
+
+MIT

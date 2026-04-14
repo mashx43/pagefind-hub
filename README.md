@@ -39,6 +39,10 @@ export default defineConfig({
   // Defaults to "dist/pagefind" if siteDir is "dist".
   // outputDir: "dist/pagefind", 
 
+  // Optional: Default language for records fetched from providers.
+  // This does not apply to static HTML files in siteDir.
+  // language: "en",
+
   providers: [
     bluesky({
       identifier: "your-handle.bsky.social",
@@ -86,6 +90,7 @@ Fetches posts from a specific Bluesky author feed.
 | `identifier` | `string` (Required) | - | The Bluesky handle or DID. |
 | `limit` | `number` | `50` | Max number of posts. |
 | `image` | `string` | - | Fallback image URL. |
+| `language` | `string` | - | Language code (e.g., "en"). |
 | `useThumbnails` | `boolean` | `true` | Use the post's thumbnail. |
 | `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
 
@@ -98,6 +103,7 @@ Fetches public repositories from a specific user.
 | `token` | `string` | - | GitHub personal access token (increases API rate limits). |
 | `limit` | `number` | `50` | Max number of repos. |
 | `image` | `string` | - | Fallback image URL. |
+| `language` | `string` | - | Language code (e.g., "en"). |
 | `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date, stars, forks) |
 
 ### YouTube (`youtube`)
@@ -109,6 +115,7 @@ Fetches the latest videos uploaded by a YouTube channel.
 | `apiKey` | `string` (Required) | - | YouTube Data API v3 Key. |
 | `limit` | `number` | `50` | Max number of videos. |
 | `image` | `string` | - | Fallback image URL. |
+| `language` | `string` | - | Language code (e.g., "en"). |
 | `useThumbnails` | `boolean` | `true` | Use the video's thumbnail. |
 | `meta`, `filters`, `sort` | `Function` | Built-in | Functions to customize Pagefind indexing data. (Default sets platform, title, date) |
 

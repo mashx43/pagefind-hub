@@ -61,6 +61,7 @@ export function github(options: GitHubProviderOptions): Provider {
 		token,
 		limit = 50,
 		image = DEFAULT_GITHUB_ICON,
+		language,
 		meta = (repo) => ({
 			title: repo.full_name,
 			date: repo.pushed_at,
@@ -100,7 +101,7 @@ export function github(options: GitHubProviderOptions): Provider {
 			return repos.map((repo) => ({
 				url: repo.html_url,
 				content: repo.description || "No description",
-				language: repo.language || undefined,
+				language,
 				meta: { image, ...meta(repo) },
 				filters: filters(repo),
 				sort: sort?.(repo),

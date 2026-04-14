@@ -23,6 +23,11 @@ export interface CommonProviderOptions<T> {
 	 */
 	image?: string;
 	/**
+	 * Optional language for the records.
+	 * If not specified, Pagefind Hub's default language will be used.
+	 */
+	language?: string;
+	/**
 	 * Optional function to generate metadata for each record.
 	 * The metadata is used by Pagefind for display and filtering.
 	 */
@@ -50,6 +55,12 @@ export interface PagefindHubConfig {
 	 * If siteDir is also omitted, this field is required.
 	 */
 	outputDir?: string;
+	/**
+	 * Default language for records fetched from providers.
+	 * This does not apply to static HTML files in siteDir.
+	 * @default "unknown"
+	 */
+	language?: string;
 	/**
 	 * List of providers to fetch custom records from.
 	 */

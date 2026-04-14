@@ -79,6 +79,7 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 		limit = 50,
 		image = DEFAULT_BLUESKY_ICON,
 		useThumbnails = true,
+		language,
 		meta = (post) => ({
 			title: `Bluesky Post by ${identifier}`,
 			date: post.record.createdAt,
@@ -125,6 +126,7 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 				records.push({
 					url: postUrl,
 					content: post.record.text,
+					language,
 					meta: {
 						image: useThumbnails && postThumbnail ? postThumbnail : image,
 						...meta(post),

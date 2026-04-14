@@ -43,7 +43,7 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 				await index.addCustomRecord({
 					url: record.url,
 					content: record.content,
-					language: record.language || "en",
+					language: record.language || config.language || "unknown",
 					meta: record.meta,
 					filters: record.filters,
 					sort: record.sort,

@@ -91,6 +91,7 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 		limit = 50,
 		image = DEFAULT_YOUTUBE_ICON,
 		useThumbnails = true,
+		language,
 		meta = (snippet) => ({
 			title: snippet.title,
 			date: snippet.publishedAt,
@@ -164,6 +165,7 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 				return {
 					url: videoUrl,
 					content: description || "No description",
+					language,
 					meta: {
 						image: useThumbnails && videoThumbnail ? videoThumbnail : image,
 						...meta(snippet),

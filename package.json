@@ -1,15 +1,46 @@
 {
 	"name": "@mash43/pagefind-hub",
-	"version": "0.0.1",
+	"version": "0.0.2",
+	"description": "A CLI tool that seamlessly aggregates external content and indexes them alongside your static site's content using Pagefind.",
+	"author": "mash43",
+	"license": "MIT",
+	"homepage": "https://github.com/mashx43/pagefind-hub#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mashx43/pagefind-hub.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mashx43/pagefind-hub/issues"
+	},
+	"keywords": [
+		"pagefind"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"type": "module",
-	"main": "dist/index.mjs",
 	"exports": {
-		".": "./dist/index.mjs",
-		"./providers": "./dist/providers/index.mjs",
-		"./ui": "./dist/ui.mjs"
+		".": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		},
+		"./providers": {
+			"types": "./dist/providers/index.d.mts",
+			"default": "./dist/providers/index.mjs"
+		},
+		"./ui": {
+			"types": "./dist/ui.d.mts",
+			"default": "./dist/ui.mjs"
+		}
 	},
 	"bin": {
 		"pagefind-hub": "./dist/cli.mjs"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=22.0.0"
 	},
 	"scripts": {
 		"build": "tsdown",
@@ -21,15 +52,6 @@
 		"serve": "bun run scripts/serve.ts example/public",
 		"demo": "bun run example && bun run serve"
 	},
-	"keywords": [
-		"pagefind"
-	],
-	"author": "mash43",
-	"license": "MIT",
-	"engines": {
-		"node": ">=22.0.0"
-	},
-	"description": "",
 	"dependencies": {
 		"jiti": "^2.6.1"
 	},

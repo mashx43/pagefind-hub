@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@mash43/pagefind-hub.svg)](https://www.npmjs.com/package/@mash43/pagefind-hub) 
 
+[English](README.md) | [日本語](README.jp.md)
+
 様々な外部コンテンツをシームレスに取得し、静的サイトのコンテンツと一緒に [Pagefind](https://pagefind.app/) を使って検索インデックスとして構築するためのCLIツールです。
 
 ## 特徴
@@ -46,7 +48,7 @@ export default defineConfig({
   siteDir: "dist", 
 
   // オプション: 生成されたPagefindインデックスの保存先ディレクトリ。
-  // 指定されていない場合、siteDirがあれば `<siteDir>/pagefind` がデフォルトになります。
+  // 指定されていない場合、siteDirが指定されていれば `<siteDir>/pagefind` がデフォルトになります。
   // outputDir: "dist/pagefind", 
 
   // オプション: プロバイダから取得した外部レコードに適用するデフォルト言語。
@@ -62,7 +64,7 @@ export default defineConfig({
     }),
     youtube({
       channelId: "UCXXXXXXXXXXXXXXX",
-      apiKey: process.env.YOUTUBE_API_KEY, // Node 21.7+ なら .env が自動で読み込まれます
+      apiKey: process.env.YOUTUBE_API_KEY,
     }),
   ],
 });

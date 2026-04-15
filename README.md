@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@mash43/pagefind-hub.svg)](https://www.npmjs.com/package/@mash43/pagefind-hub) 
 
+[English](README.md) | [日本語](README.jp.md)
+
 A CLI tool that seamlessly aggregates external content and indexes them alongside your static site's content using [Pagefind](https://pagefind.app/).
 
 ## Features

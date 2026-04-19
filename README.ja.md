@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@mash43/pagefind-hub.svg)](https://www.npmjs.com/package/@mash43/pagefind-hub) 
 
-[English](README.md) | [日本語](README.jp.md)
+[English](README.md) | [日本語](README.ja.md)
 
 様々な外部コンテンツをシームレスに取得し、静的サイトのコンテンツと一緒に [Pagefind](https://pagefind.app/) を使って検索インデックスとして構築するためのCLIツールです。
 

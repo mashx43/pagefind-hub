@@ -1,6 +1,6 @@
 {
 	"name": "@mash43/pagefind-hub",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"description": "A CLI tool that seamlessly aggregates external content and indexes them alongside your static site's content using Pagefind.",
 	"author": "mash43",
 	"license": "MIT",

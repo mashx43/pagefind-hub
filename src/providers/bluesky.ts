@@ -128,7 +128,7 @@ export function bluesky(options: BlueskyProviderOptions): Provider {
 					content: post.record.text,
 					language,
 					meta: {
-						image: useThumbnails && postThumbnail ? postThumbnail : image,
+						image: (useThumbnails && postThumbnail) || image,
 						...meta(post),
 					},
 					filters: filters(post),

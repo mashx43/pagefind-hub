@@ -7,8 +7,7 @@ export async function runPagefindHub(config: PagefindHubConfig): Promise<void> {
 	console.log("Starting Pagefind Hub process...");
 
 	const outputDir =
-		config.outputDir ??
-		(config.siteDir ? join(config.siteDir, "pagefind") : undefined);
+		config.outputDir ?? (config.siteDir && join(config.siteDir, "pagefind"));
 
 	if (!outputDir) {
 		throw new Error(

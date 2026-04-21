@@ -170,7 +170,7 @@ export function youtube(options: YouTubeProviderOptions): Provider {
 					content: description || "No description",
 					language,
 					meta: {
-						image: useThumbnails && videoThumbnail ? videoThumbnail : image,
+						image: (useThumbnails && videoThumbnail) || image,
 						...meta(snippet),
 					},
 					filters: filters(snippet),

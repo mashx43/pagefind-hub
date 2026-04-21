@@ -1,7 +1,7 @@
 //#region src/ui.ts
 function observeExternalLinks() {
 	if (typeof window === "undefined" || !("MutationObserver" in window)) return null;
-	const container = document.getElementsByTagName("pagefind-results")[0] ?? document.getElementsByClassName("pagefind-ui__results")[0];
+	const container = document.getElementsByTagName("pagefind-results")[0] ?? document.getElementsByClassName("pagefind-ui__drawer")[0];
 	if (!container) return null;
 	function updateLinks() {
 		const links = container.querySelectorAll("a[href]:not([target='_blank'])");

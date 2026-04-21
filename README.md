@@ -11,7 +11,7 @@ A CLI tool that seamlessly aggregates external content and indexes them alongsid
 - **External Providers**: Easily fetch records from external services (e.g., Bluesky, GitHub, YouTube) to be indexed.
 - **Unified Index**: Combine your local website content (`siteDir`) with external data sources into a single Pagefind index.
 - **Customizable**: Add custom metadata, filters, and sorting for each provider record.
-- **UI Utilities**: Includes an observer to automatically open external search results in new tabs for better UX.
+- **UI Utilities**: Includes lightweight helpers to format dates and open external links in new tabs.
 - **TypeScript Support**: Full TypeScript support with `pagefind-hub.config.ts`.
 
 ## Installation
@@ -141,19 +141,24 @@ Fetches the latest videos uploaded by a YouTube channel.
 | `apiKey` | `string` (Required) | - | YouTube Data API v3 Key. |
 | `useThumbnails` | `boolean` | `true` | Use the video's thumbnail. |
 
-## UI Integration
+## UI Utilities
 
-When displaying search results containing external URLs, you might want to automatically add `target="_blank"` to them. We provide a small utility script for this.
+Pagefind Hub provides lightweight UI utilities to improve the search experience.
 
 ```javascript
-import { observeExternalLinks } from "@mash43/pagefind-hub/ui";
+import { observePagefind, formatDate, openExternal } from "@mash43/pagefind-hub/ui";
 
-// Start observing the Pagefind results container
-const observer = observeExternalLinks();
+// Call after initializing your Pagefind UI.
+// Applies both formatDate and openExternal by default.
+observePagefind();
 
-// Remember to cleanup when unmounting/destroying
-// observer?.disconnect();
+// To apply only specific actions:
+// observePagefind([openExternal]);
 ```
+
+- **`formatDate`**: Converts Pagefind's default ISO date strings to localized `YYYY-MM-DD` format.
+- **`openExternal`**: Automatically adds `target="_blank"` and `rel="noopener noreferrer"` to external links in search results.
+- **`observePagefind`**: Observes the Pagefind results container and triggers specified actions whenever new results appear.
 
 ## License
 

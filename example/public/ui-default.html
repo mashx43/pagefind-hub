@@ -18,14 +18,14 @@
 		<main>
 			<div id="search"></div>
 			<script type="module">
-			import { observeExternalLinks } from "/ui.mjs";
+			import { observePagefind } from "/ui.mjs";
 
 			window.addEventListener("DOMContentLoaded", () => {
 				new PagefindUI({
 					element: "#search",
 					showSubResults: true,
 				});
-				observeExternalLinks();
+				observePagefind();
 			});
 			</script>
 		</main>

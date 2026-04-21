@@ -29,8 +29,8 @@
 			"default": "./dist/providers/index.mjs"
 		},
 		"./ui": {
-			"types": "./dist/ui.d.mts",
-			"default": "./dist/ui.mjs"
+			"types": "./dist/ui/index.d.mts",
+			"default": "./dist/ui/index.mjs"
 		}
 	},
 	"bin": {
@@ -48,7 +48,7 @@
 		"dev": "bun run src/cli.ts",
 		"check": "bun test && biome check && tsc --noEmit --skipLibCheck",
 		"biome:fix": "biome check --write",
-		"example": "bun run build && cp dist/ui.mjs example/public/ && cp example/content/* example/public && bun run dist/cli.mjs example",
+		"example": "bun run build && cp dist/ui/index.mjs example/public/ui.mjs && cp example/content/* example/public && bun run dist/cli.mjs example",
 		"serve": "bun run scripts/serve.ts example/public",
 		"demo": "bun run example && bun run serve"
 	},

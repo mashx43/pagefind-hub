@@ -40,7 +40,7 @@ npx pagefind-hub init
 
 ```typescript
 import { defineConfig } from "@mash43/pagefind-hub";
-import { bluesky, github, youtube } from "@mash43/pagefind-hub/providers";
+import { bluesky, github, rss, youtube } from "@mash43/pagefind-hub/providers";
 
 export default defineConfig({
   // オプション: Pagefindでインデックス化する静的HTMLファイルがあるディレクトリ。
@@ -61,6 +61,9 @@ export default defineConfig({
     }),
     github({
       username: "your-github-username",
+    }),
+    rss({
+      url: "https://example.com/feed.xml",
     }),
     youtube({
       channelId: "UCXXXXXXXXXXXXXXX",
@@ -121,6 +124,13 @@ npm run pagefind-hub
 |---|---|---|---|
 | `username` | `string`（必須） | - | GitHubのユーザー名。 |
 | `token` | `string` | - | GitHubトークン（APIレート制限の緩和に使用）。 |
+
+### RSS (`rss`)
+RSSまたはAtomフィードから項目を取得します。`platform` メタデータおよびフィルターは、フィードURLのホスト名から自動的に抽出されます。
+
+| オプション | 型 | デフォルト | 説明 |
+|---|---|---|---|
+| `url` | `string`（必須） | - | RSSまたはAtomフィードのURL。 |
 
 ### YouTube (`youtube`)
 特定のYouTubeチャンネルでアップロードされた最新の動画一覧を取得します。

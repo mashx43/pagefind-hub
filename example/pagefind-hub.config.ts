@@ -1,6 +1,7 @@
 import { defineConfig } from "../src/config.js";
 import { bluesky } from "../src/providers/bluesky.js";
 import { github } from "../src/providers/github.js";
+import { rss } from "../src/providers/rss.js";
 import { youtube } from "../src/providers/youtube.js";
 
 /**
@@ -25,6 +26,11 @@ export default defineConfig({
 					}),
 				]
 			: []),
+		rss({
+			url:
+				process.env.RSS_URL ||
+				"https://github.com/pagefind/pagefind/releases.atom",
+		}),
 		// Add a mock provider so the search results are populated even without API keys
 		{
 			name: "mock-provider",

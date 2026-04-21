@@ -40,7 +40,7 @@ If you prefer to create the file manually, create a `pagefind-hub.config.ts` fil
 
 ```typescript
 import { defineConfig } from "@mash43/pagefind-hub";
-import { bluesky, github, youtube } from "@mash43/pagefind-hub/providers";
+import { bluesky, github, rss, youtube } from "@mash43/pagefind-hub/providers";
 
 export default defineConfig({
   // Optional: The directory containing your static HTML files to be indexed.
@@ -61,6 +61,9 @@ export default defineConfig({
     }),
     github({
       username: "your-github-username",
+    }),
+    rss({
+      url: "https://example.com/feed.xml",
     }),
     youtube({
       channelId: "UCXXXXXXXXXXXXXXX",
@@ -121,6 +124,13 @@ Fetches public repositories from a specific user.
 |---|---|---|---|
 | `username` | `string` (Required) | - | GitHub username. |
 | `token` | `string` | - | GitHub personal access token (increases API rate limits). |
+
+### RSS (`rss`)
+Fetches items from an RSS or Atom feed. The `platform` metadata/filter is automatically extracted from the feed URL's hostname.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `url` | `string` (Required) | - | The URL of the RSS or Atom feed. |
 
 ### YouTube (`youtube`)
 Fetches the latest videos uploaded by a YouTube channel.
